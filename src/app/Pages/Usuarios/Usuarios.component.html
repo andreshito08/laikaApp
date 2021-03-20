@@ -1,0 +1,92 @@
+<h3>Usuarios</h3>
+<p>
+  <button mat-raised-button color="primary" (click)="userForm.reset()">Nuevo usuario</button>
+  <br>
+  <mat-card>
+    <form class="example-form" #userForm="ngForm">
+      <table class="example-full-width" cellspacing="0">
+        <tr>
+          <td>
+            <mat-form-field class="example-full-width">
+              <mat-label>* Identificación</mat-label>
+              <input type="number" maxlength="15" matInput [(ngModel)]="selectUsuario.identificacion" name="identificacion">
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field appearance="fill">
+              <mat-label>* Tipo identificación</mat-label>
+              <mat-select [(ngModel)]="selectUsuario.tipo_identificacion_cod" name="tipo_identificacion_cod">
+                <mat-option *ngFor="let tipoIdent  of tipoIdents" [value]="tipoIdent.id" >
+                  {{tipoIdent.nombre}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <mat-form-field class="example-full-width">
+            <mat-label>* Nombre</mat-label>
+              <input matInput maxlength="25" [(ngModel)]="selectUsuario.nombre" name="nombre">
+            </mat-form-field>
+          <td><mat-form-field class="example-full-width">
+            <mat-label>* Apellidos</mat-label>
+            <input matInput maxlength="50" [(ngModel)]="selectUsuario.apellidos" name="apellidos">
+          </mat-form-field></td>
+        <tr>
+          <td><mat-form-field class="example-full-width">
+            <mat-label>Email</mat-label>
+            <input type="email" maxlength="50" matInput [(ngModel)]="selectUsuario.email" name="email" ngModel email="true">
+          </mat-form-field></td>
+        </tr>
+      </table>
+
+    </form>
+    <button mat-raised-button color="primary" (click)="save(selectUsuario)">Guardar</button>
+    <button mat-raised-button color="accent" (click)="update(selectUsuario)">Actualizar</button>
+    <button mat-raised-button color="warn" (click)="userForm.reset()">Cancelar</button>
+  </mat-card>
+
+  <mat-card>
+    <!-- goes back to users lists -->
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+          <!-- Weight Column -->
+          <ng-container matColumnDef="identificacion">
+            <th mat-header-cell *matHeaderCellDef> Identificación </th>
+            <td mat-cell *matCellDef="let element"> {{element.identificacion}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="tipo_identificacion">
+            <th mat-header-cell *matHeaderCellDef> Tipo identificacion </th>
+            <td mat-cell *matCellDef="let element"> {{element.tipo_identificacion}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="nombre">
+            <th mat-header-cell *matHeaderCellDef> Nombre </th>
+            <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="apellidos">
+            <th mat-header-cell *matHeaderCellDef> Apellidos </th>
+            <td mat-cell *matCellDef="let element"> {{element.apellidos}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef> Email </th>
+            <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>  </th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-raised-button color="primary" (click)="get(element.id)">Editar</button>
+              <button mat-raised-button color="warn" (click)="delete(element.id)">Eliminar</button>
+            </td>
+          </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </mat-card>
+</p>

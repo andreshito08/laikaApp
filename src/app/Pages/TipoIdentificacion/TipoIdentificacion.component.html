@@ -1,0 +1,42 @@
+<h3>Tipo identificación<h3>
+<p>
+  <button mat-raised-button color="primary" (click)="miForm.reset()">Nuevo registro</button>
+  <br>
+  <mat-card>
+    <form class="example-form" #miForm="ngForm">
+      <mat-form-field class="example-full-width">
+        <mat-label>* Nombre</mat-label>
+          <input matInput maxlength="25" [(ngModel)]="selectTipoIdent.nombre" name="nombre">
+        </mat-form-field>
+
+    </form>
+    <button mat-raised-button color="primary" (click)="save(selectTipoIdent)">Guardar</button>
+    <button mat-raised-button color="accent" (click)="update(selectTipoIdent)">Actualizar</button>
+    <button mat-raised-button color="warn" (click)="miForm.reset()">Cancelar</button>
+  </mat-card>
+
+  <mat-card>
+    <!-- goes back to users lists -->
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+          <ng-container matColumnDef="nombre">
+            <th mat-header-cell *matHeaderCellDef> Nombre </th>
+            <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>  </th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-raised-button color="primary" (click)="get(element.id)">Editar</button>
+              <button mat-raised-button color="warn" (click)="delete(element.id)">Eliminar</button>
+            </td>
+          </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </mat-card>
+</p>
+
