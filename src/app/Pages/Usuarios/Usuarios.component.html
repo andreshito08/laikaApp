@@ -3,19 +3,19 @@
   <button mat-raised-button color="primary" (click)="userForm.reset()">Nuevo usuario</button>
   <br>
   <mat-card>
-    <form class="example-form" #userForm="ngForm">
+    <form class="example-form" [formGroup]="myForm"  #userForm="ngForm">
       <table class="example-full-width" cellspacing="0">
         <tr>
           <td>
             <mat-form-field class="example-full-width">
               <mat-label>* Identificación</mat-label>
-              <input type="number" maxlength="15" matInput [(ngModel)]="selectUsuario.identificacion" name="identificacion">
+              <input type="number" maxlength="15" matInput [(ngModel)]="selectUsuario.identificacion" formControlName="identificacion" name="identificacion">
             </mat-form-field>
           </td>
           <td>
             <mat-form-field appearance="fill">
               <mat-label>* Tipo identificación</mat-label>
-              <mat-select [(ngModel)]="selectUsuario.tipo_identificacion_cod" name="tipo_identificacion_cod">
+              <mat-select [(ngModel)]="selectUsuario.tipo_identificacion_cod" formControlName="tipo_identificacion_cod" name="tipo_identificacion_cod">
                 <mat-option *ngFor="let tipoIdent  of tipoIdents" [value]="tipoIdent.id" >
                   {{tipoIdent.nombre}}
                 </mat-option>
@@ -26,16 +26,16 @@
         <tr>
           <mat-form-field class="example-full-width">
             <mat-label>* Nombre</mat-label>
-              <input matInput maxlength="25" [(ngModel)]="selectUsuario.nombre" name="nombre">
+              <input matInput maxlength="25" [(ngModel)]="selectUsuario.nombre" formControlName="nombre" name="nombre">
             </mat-form-field>
           <td><mat-form-field class="example-full-width">
             <mat-label>* Apellidos</mat-label>
-            <input matInput maxlength="50" [(ngModel)]="selectUsuario.apellidos" name="apellidos">
+            <input matInput maxlength="50" [(ngModel)]="selectUsuario.apellidos" formControlName="apellidos" name="apellidos">
           </mat-form-field></td>
         <tr>
           <td><mat-form-field class="example-full-width">
             <mat-label>Email</mat-label>
-            <input type="email" maxlength="50" matInput [(ngModel)]="selectUsuario.email" name="email" ngModel email="true">
+            <input type="email" maxlength="50" matInput [(ngModel)]="selectUsuario.email" formControlName="email" name="email" ngModel email="true">
           </mat-form-field></td>
         </tr>
       </table>

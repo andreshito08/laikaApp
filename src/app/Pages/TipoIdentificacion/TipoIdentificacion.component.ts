@@ -1,16 +1,25 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import {Basic} from '../../Models/Basic';
 import {TipoIdentificacionService} from '../../Services/TipoIdentificacion.service';
+
 @Component({
   selector: 'app-TipoIdentificacion',
   templateUrl: './TipoIdentificacion.component.html',
   styleUrls: ['./TipoIdentificacion.component.scss']
 })
-export class TipoIdentificacionComponent implements OnInit {
 
-  constructor(public tipoIdentService:TipoIdentificacionService) { }
+export class TipoIdentificacionComponent implements OnInit {
+  myForm: FormGroup;
+  constructor(public tipoIdentService:TipoIdentificacionService,public fb: FormBuilder) {
+    this.myForm = this.fb.group({
+      nombre: ['', [Validators.required]],
+
+    });
+
+   }
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource:any;
@@ -19,6 +28,7 @@ export class TipoIdentificacionComponent implements OnInit {
 
   ngOnInit() {
     this.getAll();
+
   }
 
   public getAll(){
@@ -31,7 +41,7 @@ export class TipoIdentificacionComponent implements OnInit {
       },
       (error) => {
         console.log(error);
-        alert(error["mensaje"]);
+        alert("Error.");
       }
     );
   }
@@ -46,7 +56,7 @@ export class TipoIdentificacionComponent implements OnInit {
         },
         (error) => {
           console.log(error);
-          alert(error["mensaje"]);
+          alert("Error.");
         }
       );
     }
@@ -61,7 +71,7 @@ export class TipoIdentificacionComponent implements OnInit {
       },
       (error) => {
         console.log(error);
-        alert(error["mensaje"]);
+        alert("Error.");
       }
     );
   }
@@ -77,7 +87,7 @@ export class TipoIdentificacionComponent implements OnInit {
       },
       (error) => {
         console.log(error);
-        alert(error["mensaje"]);
+        alert("Error.");
       }
     );
   }
@@ -93,12 +103,13 @@ export class TipoIdentificacionComponent implements OnInit {
       },
       (error) => {
         console.log(error);
-        alert(error["mensaje"]);
+        alert("Error.");
       }
     );
   }
 
   public validar():boolean{
+    console.log(this.myForm.value);
     if (this.selectTipoIdent.nombre == null) {
       alert("El campo nombre es requerido.");
       return true;

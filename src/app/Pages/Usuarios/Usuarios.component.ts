@@ -5,7 +5,7 @@ import {TipoIdentificacionService} from '../../Services/TipoIdentificacion.servi
 import {UsuarioService} from '../../Services/Usuario.service';
 import {Usuario} from '../../Models/Usuario';
 import {Basic} from '../../Models/Basic';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-Usuarios',
@@ -14,8 +14,16 @@ import { FormGroup } from '@angular/forms';
 })
 
 export class UsuariosComponent implements OnInit {
-
-  constructor(public tipoIdentService:TipoIdentificacionService, public usuarioService:UsuarioService) { }
+  myForm: FormGroup;
+  constructor(public tipoIdentService:TipoIdentificacionService, public usuarioService:UsuarioService,public fb: FormBuilder) {
+    this.myForm = this.fb.group({
+      identificacion: ['', [Validators.required]],
+      tipo_identificacion_cod: ['', [Validators.required]],
+      nombre: ['', [Validators.required]],
+      apellidos: ['', [Validators.required]],
+      email: ['', [Validators.required],Validators.email],
+    });
+  }
   
   @ViewChild(MatPaginator) paginator: MatPaginator;
   createForm: FormGroup;
@@ -39,7 +47,7 @@ export class UsuariosComponent implements OnInit {
       },
       (error) => {
         console.log(error);
-        alert(error["mensaje"]);
+        alert("Error.");
       }
     );
   }
@@ -53,7 +61,7 @@ export class UsuariosComponent implements OnInit {
       },
       (error) => {
         console.log(error);
-        alert(error["mensaje"]);
+        alert("Error.");
       }
     );
   }
@@ -68,7 +76,7 @@ export class UsuariosComponent implements OnInit {
         },
         (error) => {
           console.log(error);
-          alert(error["mensaje"]);
+          alert("Error.");
         }
       );
     }
@@ -83,7 +91,7 @@ export class UsuariosComponent implements OnInit {
       },
       (error) => {
         console.log(error);
-        alert(error["mensaje"]);
+        alert("Error.");
       }
     );
   }
@@ -99,7 +107,7 @@ export class UsuariosComponent implements OnInit {
       },
       (error) => {
         console.log(error);
-        alert(error["mensaje"]);
+        alert("Error.");
       }
     );
   }
@@ -115,7 +123,7 @@ export class UsuariosComponent implements OnInit {
       },
       (error) => {
         console.log(error);
-        alert(error["mensaje"][0]);
+        alert("Error.");
       }
     );
   }
@@ -134,17 +142,5 @@ export class UsuariosComponent implements OnInit {
       alert("El campo tipo identificacion es requerido.");
       return true;
     }
-  }
-
-  esEmailValido(email: string):boolean {
-    let mailValido = false;
-      'use strict';
-
-      var EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-
-      if (email.match(EMAIL_REGEX)){
-        mailValido = true;
-      }
-    return mailValido;
   }
 }

@@ -3,12 +3,11 @@
   <button mat-raised-button color="primary" (click)="miForm.reset()">Nuevo registro</button>
   <br>
   <mat-card>
-    <form class="example-form" #miForm="ngForm">
+    <form class="example-form" [formGroup]="myForm" #miForm="ngForm">
       <mat-form-field class="example-full-width">
         <mat-label>* Nombre</mat-label>
-          <input matInput maxlength="25" [(ngModel)]="selectTipoIdent.nombre" name="nombre">
+          <input matInput maxlength="25" [(ngModel)]="selectTipoIdent.nombre" name="nombre" formControlName="nombre">
         </mat-form-field>
-
     </form>
     <button mat-raised-button color="primary" (click)="save(selectTipoIdent)">Guardar</button>
     <button mat-raised-button color="accent" (click)="update(selectTipoIdent)">Actualizar</button>
