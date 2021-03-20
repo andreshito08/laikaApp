@@ -21,7 +21,7 @@ export class UsuariosComponent implements OnInit {
       tipo_identificacion_cod: ['', [Validators.required]],
       nombre: ['', [Validators.required]],
       apellidos: ['', [Validators.required]],
-      email: ['', [Validators.required],Validators.email],
+      email: [''],
     });
   }
   
